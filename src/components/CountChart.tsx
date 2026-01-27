@@ -12,12 +12,12 @@ const data = [
   {
     name: "Girls",
     count: 53,
-    fill: '#8884d8',
+    fill: "darkerYellow",
   },
   {
     name: "Boys",
     count: 52,
-    fill: '#83a6ed',
+    fill: "skyBlue",
   },
 ];
 
@@ -40,13 +40,12 @@ const CountChart = () => {
             {/* Chart */}
             <div className="w-full h-[75%]">
                 { <ResponsiveContainer >
-                    <RadialBarChart cx="50%" cy="50%" innerRadius="10%" outerRadius="80%" barSize={10} data={data}>
+                    <RadialBarChart cx="50%" cy="50%" innerRadius="40%" outerRadius="100%" barSize={32} data={data}>
                         <RadialBar 
                             label={{ position: 'insideStart', fill: '#fff' }}
                             background 
                             dataKey="count" 
                         />
-                        <Legend iconSize={10} layout="vertical" verticalAlign="middle" />
                      </RadialBarChart>
                 </ResponsiveContainer> }
             </div>
