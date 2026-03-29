@@ -16,7 +16,7 @@ const AdminPage = () => {
                     <UserCard type="parent"/>
                 </div>
             {/* Middle Charts */}
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex gap-4 flex-col lg:flex-row">
                 {/* Count Chart */}
                 <div className="w-full lg:w-1/3 h-[450px]">
                     <CountChart />
@@ -28,7 +28,7 @@ const AdminPage = () => {
                 </div>
             </div>
             {/* Bottom Charts */}
-            <div className="">
+            <div className="w-full h-[500px]">
                 <FinanceChart />
             </div>
             </div>
