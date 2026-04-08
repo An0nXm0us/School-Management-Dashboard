@@ -14,6 +14,9 @@ const Announcements = () => {
                         2026-04-08
                     </span>
                 </div>
+                <p className="text-sm text-gray-400 mt-1">
+                    Please review the updated school policies and their implementation timeline.
+                </p>
             </div>
 
             <div className="bg-lightPurple rounded-md p-4">
@@ -23,6 +26,9 @@ const Announcements = () => {
                         2026-04-07
                     </span>
                 </div>
+                <p className="text-sm text-gray-400 mt-1">
+                    Please review the updated school policies and their implementation timeline.
+                </p>
             </div>
 
             <div className="bg-lightYellow rounded-md p-4">
@@ -32,6 +38,9 @@ const Announcements = () => {
                         2026-04-07
                     </span>
                 </div>
+                <p className="text-sm text-gray-400 mt-1">
+                    Please review the updated school policies and their implementation timeline.
+                </p>
             </div>
         </div>
         </div>
