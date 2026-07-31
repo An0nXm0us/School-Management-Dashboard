@@ -44,11 +44,11 @@ const ParentListPage = ({
     return (
       <tr
         key={item.id}
-        className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lightPurple"
+        className="border-b border-border even:bg-muted/40 text-sm hover:bg-muted transition-colors"
       >
         <td className="p-4 flex flex-col gap-1">
           <h3 className="font-semibold">{item.name}</h3>
-          <p className="text-xs text-gray-500">{item.email}</p>
+          <p className="text-xs text-muted-foreground">{item.email}</p>
         </td>
         <td className="hidden md:table-cell">{children.map((c) => c.name).join(", ") || "-"}</td>
         <td className="hidden lg:table-cell">{item.phone}</td>
@@ -68,13 +68,13 @@ const ParentListPage = ({
   };
 
   return (
-    <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
+    <div className="bg-card text-card-foreground border border-border shadow-sm p-4 rounded-xl flex-1 m-4 mt-0">
       <div className="flex items-center justify-between">
         <h1 className="hidden md:block text-lg font-semibold">All Parents</h1>
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-Blue">
+            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-accent hover:bg-accent/90 transition-colors">
               <Image src="/filter.png" alt="filter" width={14} height={14} />
             </button>
             <SortButton />

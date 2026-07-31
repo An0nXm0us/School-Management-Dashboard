@@ -17,7 +17,7 @@ import {
   deleteTeacher,
 } from "@/lib/actions";
 
-const loading = () => <h1 className="text-sm text-gray-400">Loading form...</h1>;
+const loading = () => <h1 className="text-sm text-muted-foreground">Loading form...</h1>;
 
 const TeacherForm = dynamic(() => import("./forms/TeacherForm"), { loading });
 const StudentForm = dynamic(() => import("./forms/StudentForm"), { loading });
@@ -83,7 +83,12 @@ const FormModal = ({ table, type, data, id, relatedData }: FormContainerProps) =
 
   const icon = type === "create" ? "plus" : type === "update" ? "edit" : "delete";
   const bgColor =
-    type === "create" ? "bg-Blue" : type === "update" ? "bg-darkerYellow" : "bg-red-100";
+    type === "create"
+      ? "bg-accent hover:bg-accent/90"
+      : type === "update"
+      ? "bg-muted border border-border hover:bg-border"
+      : "bg-danger/10 hover:bg-danger/20";
+  const iconClass = type === "create" ? "" : "dark:invert";
 
   const Form = forms[table];
 
@@ -103,23 +108,23 @@ const FormModal = ({ table, type, data, id, relatedData }: FormContainerProps) =
     <>
       <button
         type="button"
-        className={`w-7 h-7 flex items-center justify-center rounded-full ${bgColor}`}
+        className={`w-7 h-7 flex items-center justify-center rounded-full transition-colors ${bgColor}`}
         onClick={() => setOpen(true)}
       >
-        <Image src={`/${icon}.png`} alt={type} width={14} height={14} />
+        <Image src={`/${icon}.png`} alt={type} width={14} height={14} className={iconClass} />
       </button>
       {open && (
-        <div className="w-screen h-screen fixed left-0 top-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-md relative w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] max-h-[90vh] overflow-y-auto">
+        <div className="w-screen h-screen fixed left-0 top-0 bg-black/60 z-50 flex items-center justify-center">
+          <div className="bg-card text-card-foreground border border-border shadow-xl p-6 rounded-xl relative w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%] max-h-[90vh] overflow-y-auto">
             {type === "delete" && id ? (
               <div className="flex flex-col gap-4">
                 <span className="text-center font-medium">
                   All related data will be lost. Are you sure you want to delete this {table}?
                 </span>
-                {deleteError && <p className="text-center text-sm text-red-500">{deleteError}</p>}
+                {deleteError && <p className="text-center text-sm text-danger">{deleteError}</p>}
                 <button
                   onClick={handleDelete}
-                  className="w-max self-center bg-red-600 text-white py-2 px-4 rounded-md"
+                  className="w-max self-center bg-danger text-white py-2 px-4 rounded-md hover:bg-danger/90 transition-colors"
                 >
                   Delete
                 </button>
@@ -130,10 +135,10 @@ const FormModal = ({ table, type, data, id, relatedData }: FormContainerProps) =
               "Form not found"
             )}
             <div
-              className="absolute top-4 right-4 cursor-pointer"
+              className="absolute top-4 right-4 cursor-pointer w-6 h-6 flex items-center justify-center rounded-full hover:bg-muted transition-colors"
               onClick={() => setOpen(false)}
             >
-              <Image src="/close.png" alt="close" width={14} height={14} />
+              <Image src="/close.png" alt="close" width={14} height={14} className="dark:invert" />
             </div>
           </div>
         </div>

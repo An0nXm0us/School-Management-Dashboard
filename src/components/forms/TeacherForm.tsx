@@ -23,7 +23,7 @@ const TeacherForm = ({
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TeacherSchema>({
     resolver: zodResolver(teacherSchema) as Resolver<TeacherSchema>,
     defaultValues: data,
@@ -49,7 +49,7 @@ const TeacherForm = ({
       <h1 className="text-xl font-semibold">
         {type === "create" ? "Create a new teacher" : "Update teacher"}
       </h1>
-      <span className="text-xs text-gray-400 font-medium">Personal Information</span>
+      <span className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Personal Information</span>
       <div className="flex flex-wrap gap-4">
         <InputField label="Full name" name="name" register={register} error={errors.name} defaultValue={data?.name} />
         <InputField label="Email" name="email" register={register} error={errors.email} defaultValue={data?.email} />
@@ -66,9 +66,9 @@ const TeacherForm = ({
           defaultValue={data?.birthday}
         />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Sex</label>
+          <label className="text-xs text-muted-foreground">Sex</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("sex")}
             defaultValue={data?.sex}
           >
@@ -77,7 +77,7 @@ const TeacherForm = ({
           </select>
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Subjects</label>
+          <label className="text-xs text-muted-foreground">Subjects</label>
           <Controller
             name="subjectIds"
             control={control}
@@ -85,7 +85,7 @@ const TeacherForm = ({
             render={({ field }) => (
               <select
                 multiple
-                className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full h-[100px]"
+                className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring h-[100px]"
                 value={(field.value ?? []).map(String)}
                 onChange={(e) =>
                   field.onChange(Array.from(e.target.selectedOptions, (o) => Number(o.value)))
@@ -104,9 +104,12 @@ const TeacherForm = ({
           <InputField label="Id" name="id" register={register} defaultValue={data?.id} hidden />
         )}
       </div>
-      {submitError && <span className="text-red-500 text-sm">{submitError}</span>}
-      <button className="bg-Blue text-white p-2 rounded-md">
-        {type === "create" ? "Create" : "Update"}
+      {submitError && <span className="text-danger text-sm">{submitError}</span>}
+      <button
+        disabled={isSubmitting}
+        className="bg-accent text-accent-foreground p-2 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? "Saving..." : type === "create" ? "Create" : "Update"}
       </button>
     </form>
   );

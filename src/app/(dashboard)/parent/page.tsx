@@ -19,19 +19,19 @@ const ParentPage = () => {
             <div className="w-full xl:w-2/3 flex flex-col gap-4">
                 <h1 className="text-xl font-semibold">Welcome, {parent.name}</h1>
                 {children.length === 0 && (
-                    <p className="text-sm text-gray-400 bg-white p-4 rounded-md">No students linked yet.</p>
+                    <p className="text-sm text-muted-foreground bg-card border border-border shadow-sm p-4 rounded-xl">No students linked yet.</p>
                 )}
                 {children.map((child) => {
                     const cls = classesData.find((c) => c.id === child.classId);
                     return (
-                        <div className="bg-white p-4 rounded-md" key={child.id}>
+                        <div className="bg-card text-card-foreground border border-border shadow-sm p-4 rounded-xl" key={child.id}>
                             <div className="flex items-center justify-between mb-2">
                                 <h2 className="font-semibold">
-                                    {child.name} <span className="text-gray-400 font-normal">({cls?.name ?? "-"})</span>
+                                    {child.name} <span className="text-muted-foreground font-normal">({cls?.name ?? "-"})</span>
                                 </h2>
                                 <Link
                                     href={`/list/students/${child.id}`}
-                                    className="text-xs text-Blue underline"
+                                    className="text-xs text-accent underline"
                                 >
                                     View profile
                                 </Link>

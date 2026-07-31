@@ -21,12 +21,12 @@ const StudentPage = () => {
     return (
         <div className="p-4 flex gap-4 flex-col xl:flex-row">
             <div className="w-full xl:w-2/3">
-                <div className="h-full bg-white p-4 rounded-md">
+                <div className="h-full bg-card text-card-foreground border border-border shadow-sm p-4 rounded-xl">
                     <div className="flex items-center justify-between mb-2">
                         <h1 className="text-xl font-semibold">Welcome, {student.name}</h1>
-                        <span className="text-sm text-gray-400">{cls?.name ?? "-"}</span>
+                        <span className="text-sm text-muted-foreground">{cls?.name ?? "-"}</span>
                     </div>
-                    <h2 className="font-semibold text-sm text-gray-500 mb-2">Your Schedule</h2>
+                    <h2 className="font-semibold text-sm text-muted-foreground mb-2">Your Schedule</h2>
                     <div className="h-[700px]">
                         {cls && <BigCalendarContainer type="classId" id={cls.id} />}
                     </div>

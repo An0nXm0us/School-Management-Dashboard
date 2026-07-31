@@ -23,15 +23,15 @@ const InputField = ({
 }: InputFieldProps) => {
   return (
     <div className={hidden ? "hidden" : "flex flex-col gap-2 w-full md:w-1/4"}>
-      <label className="text-xs text-gray-500">{label}</label>
+      <label className="text-xs text-muted-foreground">{label}</label>
       <input
         type={type}
         {...register(name)}
-        className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+        className="ring-1 ring-border bg-background text-foreground placeholder:text-muted-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         defaultValue={defaultValue}
         {...inputProps}
       />
-      {error?.message && <p className="text-xs text-red-400">{error.message.toString()}</p>}
+      {error?.message && <p className="text-xs text-danger">{error.message.toString()}</p>}
     </div>
   );
 };

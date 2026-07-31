@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/auth";
 import { announcementsData, studentsData } from "@/lib/data";
 
-const CARD_COLORS = ["bg-skyBlue", "bg-lightPurple", "bg-lightYellow"];
+const CARD_ACCENTS = ["border-l-tagBlue", "border-l-tagPurple", "border-l-tagAmber"];
 
 const Announcements = () => {
   const session = getSession();
@@ -22,22 +22,25 @@ const Announcements = () => {
     .slice(0, 3);
 
   return (
-    <div className="bg-white p-4 rounded-md">
+    <div className="bg-card text-card-foreground border border-border shadow-sm p-4 rounded-xl">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Announcements</h1>
-        <span className="text-xs text-gray-400">View All</span>
+        <span className="text-xs text-muted-foreground">View All</span>
       </div>
       <div className="flex flex-col gap-4 mt-4">
-        {latest.length === 0 && <p className="text-sm text-gray-400">No announcements yet.</p>}
+        {latest.length === 0 && <p className="text-sm text-muted-foreground">No announcements yet.</p>}
         {latest.map((a, i) => (
-          <div className={`${CARD_COLORS[i % CARD_COLORS.length]} rounded-md p-4`} key={a.id}>
+          <div
+            className={`bg-muted/40 border-l-4 ${CARD_ACCENTS[i % CARD_ACCENTS.length]} rounded-md p-4`}
+            key={a.id}
+          >
             <div className="flex items-center justify-between">
               <h2 className="font-medium">{a.title}</h2>
-              <span className="text-xs text-gray-400 bg-white rounded-md px-1 py-1">
+              <span className="text-xs text-muted-foreground bg-card rounded-md px-1 py-1">
                 {new Intl.DateTimeFormat("en-ZA", { dateStyle: "medium" }).format(a.date)}
               </span>
             </div>
-            <p className="text-sm text-gray-400 mt-1">{a.description}</p>
+            <p className="text-sm text-muted-foreground mt-1">{a.description}</p>
           </div>
         ))}
       </div>

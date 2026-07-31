@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,16 +16,45 @@ const config: Config = {
       },
 
       colors: {
-        Blue: "#27A6F5",
-        DarkerBlue: "#2779F5",
-        skyBlue: "#C3EBFA",
-        lightPurple: "#F1F0FF",
-        darkerPurple: "#CFCEFF",
-        lightYellow: "#FEFCE8",
-        darkerYellow: "#FAE27C"
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        border: "hsl(var(--border))",
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        ring: "hsl(var(--ring))",
+        danger: "hsl(var(--danger))",
+        success: "hsl(var(--success))",
+        tagBlue: {
+          DEFAULT: "hsl(var(--tag-blue))",
+          foreground: "hsl(var(--tag-blue-foreground))",
+        },
+        tagPurple: {
+          DEFAULT: "hsl(var(--tag-purple))",
+          foreground: "hsl(var(--tag-purple-foreground))",
+        },
+        tagAmber: {
+          DEFAULT: "hsl(var(--tag-amber))",
+          foreground: "hsl(var(--tag-amber-foreground))",
+        },
+        tagGreen: {
+          DEFAULT: "hsl(var(--tag-green))",
+          foreground: "hsl(var(--tag-green-foreground))",
+        },
+      },
+      borderRadius: {
+        xl: "0.875rem",
       },
     },
-
   },
   plugins: [],
 };

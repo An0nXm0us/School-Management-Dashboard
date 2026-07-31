@@ -20,7 +20,7 @@ const SortButton = () => {
       type="button"
       onClick={toggle}
       title={`Sort ${current === "asc" ? "descending" : "ascending"}`}
-      className="w-8 h-8 flex items-center justify-center rounded-full bg-Blue"
+      className="w-8 h-8 flex items-center justify-center rounded-full bg-accent hover:bg-accent/90 transition-colors"
     >
       <Image src="/sort.png" alt="sort" width={14} height={14} />
     </button>

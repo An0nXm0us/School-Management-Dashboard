@@ -24,7 +24,7 @@ const AssignmentForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<AssignmentSchema>({
     resolver: zodResolver(assignmentSchema) as Resolver<AssignmentSchema>,
     defaultValues: data,
@@ -70,9 +70,9 @@ const AssignmentForm = ({
           defaultValue={toDateInput(data?.dueDate)}
         />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Lesson</label>
+          <label className="text-xs text-muted-foreground">Lesson</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("lessonId")}
             defaultValue={data?.lessonId}
           >
@@ -87,9 +87,12 @@ const AssignmentForm = ({
           <InputField label="Id" name="id" register={register} defaultValue={data?.id} hidden />
         )}
       </div>
-      {submitError && <span className="text-red-500 text-sm">{submitError}</span>}
-      <button className="bg-Blue text-white p-2 rounded-md">
-        {type === "create" ? "Create" : "Update"}
+      {submitError && <span className="text-danger text-sm">{submitError}</span>}
+      <button
+        disabled={isSubmitting}
+        className="bg-accent text-accent-foreground p-2 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? "Saving..." : type === "create" ? "Create" : "Update"}
       </button>
     </form>
   );

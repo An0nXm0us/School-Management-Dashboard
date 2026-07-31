@@ -9,9 +9,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="h-screen flex">
+    <div className="h-screen flex bg-background text-foreground">
       {/* Sidebar */}
-      <div className="w-[14%] md:w-[18%] lg:w-[20%] xl:w-[14%]  p-4">
+      <div className="w-[14%] md:w-[18%] lg:w-[20%] xl:w-[14%] p-4 bg-card border-r border-border">
         <Link href="/" className="flex items-center justify-center lg:justify-start gap-2">
         <Image src="/logo.png" alt="logo" width={32} height={32} />
         <span className="hidden lg:block font-bold">Secondary High</span>
@@ -19,7 +19,7 @@ export default function DashboardLayout({
         <Menu/>
       </div>
       {/* Main Content */}
-      <div className="w-[86%] md:w-[82%] lg:w-[80%] xl:w-[86%] bg-[#F7F8FA] overflow-scroll">
+      <div className="w-[86%] md:w-[82%] lg:w-[80%] xl:w-[86%] bg-muted/40 overflow-scroll">
         <Navbar />
         {children}
       </div>

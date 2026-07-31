@@ -19,11 +19,11 @@ const Pagination = ({ page, count }: { page: number; count: number }) => {
   };
 
   return (
-    <div className="p-4 flex items-center justify-between text-gray-500">
+    <div className="p-4 flex items-center justify-between text-muted-foreground">
       <button
         disabled={!hasPrev}
         onClick={() => changePage(page - 1)}
-        className="py-2 px-4 rounded-md bg-slate-200 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        className="py-2 px-4 rounded-md bg-muted text-foreground text-xs font-semibold hover:bg-border transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Prev
       </button>
@@ -32,7 +32,9 @@ const Pagination = ({ page, count }: { page: number; count: number }) => {
           <button
             key={p}
             onClick={() => changePage(p)}
-            className={`px-2 rounded-sm ${page === p ? "bg-Blue text-white" : ""}`}
+            className={`px-2 py-1 rounded-md transition-colors ${
+              page === p ? "bg-accent text-accent-foreground" : "hover:bg-muted text-foreground"
+            }`}
           >
             {p}
           </button>
@@ -41,7 +43,7 @@ const Pagination = ({ page, count }: { page: number; count: number }) => {
       <button
         disabled={!hasNext}
         onClick={() => changePage(page + 1)}
-        className="py-2 px-4 rounded-md bg-slate-200 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        className="py-2 px-4 rounded-md bg-muted text-foreground text-xs font-semibold hover:bg-border transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Next
       </button>

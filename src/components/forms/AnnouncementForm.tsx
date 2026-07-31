@@ -24,7 +24,7 @@ const AnnouncementForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<AnnouncementSchema>({
     resolver: zodResolver(announcementSchema) as Resolver<AnnouncementSchema>,
     defaultValues: data,
@@ -63,9 +63,9 @@ const AnnouncementForm = ({
           defaultValue={toDateInput(data?.date)}
         />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Class</label>
+          <label className="text-xs text-muted-foreground">Class</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("classId")}
             defaultValue={data?.classId ?? ""}
           >
@@ -81,9 +81,12 @@ const AnnouncementForm = ({
           <InputField label="Id" name="id" register={register} defaultValue={data?.id} hidden />
         )}
       </div>
-      {submitError && <span className="text-red-500 text-sm">{submitError}</span>}
-      <button className="bg-Blue text-white p-2 rounded-md">
-        {type === "create" ? "Create" : "Update"}
+      {submitError && <span className="text-danger text-sm">{submitError}</span>}
+      <button
+        disabled={isSubmitting}
+        className="bg-accent text-accent-foreground p-2 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? "Saving..." : type === "create" ? "Create" : "Update"}
       </button>
     </form>
   );

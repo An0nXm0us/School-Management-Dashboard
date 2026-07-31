@@ -33,31 +33,31 @@ const EventCalendarContainer = ({
         .slice(0, 3);
 
   return (
-    <div className="bg-white p-4 rounded-md">
+    <div className="bg-card text-card-foreground border border-border shadow-sm p-4 rounded-xl">
       <EventCalendar />
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold my-4">
           {onSelectedDay.length ? "Events on this day" : "Upcoming Events"}
         </h1>
-        <Image src="/moreDark.png" alt="" width={20} height={20} />
+        <Image src="/moreDark.png" alt="" width={20} height={20} className="dark:invert" />
       </div>
       <div className="flex flex-col gap-4">
-        {shown.length === 0 && <p className="text-sm text-gray-400">No events.</p>}
+        {shown.length === 0 && <p className="text-sm text-muted-foreground">No events.</p>}
         {shown.map((event, i) => (
           <div
-            className={`p-5 rounded-md border-2 border-gray-100 border-t-4 ${
-              i % 2 === 0 ? "border-t-skyBlue" : "border-t-darkerPurple"
+            className={`p-5 rounded-md border border-border border-t-4 ${
+              i % 2 === 0 ? "border-t-accent" : "border-t-tagPurple"
             }`}
             key={event.id}
           >
             <div className="flex items-center justify-between">
-              <h1 className="font-semibold text-gray-600">{event.title}</h1>
-              <span className="text-gray-300 text-xs">
+              <h1 className="font-semibold">{event.title}</h1>
+              <span className="text-muted-foreground text-xs">
                 {event.startTime.toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit" })} -{" "}
                 {event.endTime.toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit" })}
               </span>
             </div>
-            <p className="mt-2 text-gray-500 text-sm">{event.description}</p>
+            <p className="mt-2 text-muted-foreground text-sm">{event.description}</p>
           </div>
         ))}
       </div>

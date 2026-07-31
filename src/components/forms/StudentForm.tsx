@@ -26,7 +26,7 @@ const StudentForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<StudentSchema>({
     resolver: zodResolver(studentSchema) as Resolver<StudentSchema>,
     defaultValues: data,
@@ -52,7 +52,7 @@ const StudentForm = ({
       <h1 className="text-xl font-semibold">
         {type === "create" ? "Create a new student" : "Update student"}
       </h1>
-      <span className="text-xs text-gray-400 font-medium">Personal Information</span>
+      <span className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Personal Information</span>
       <div className="flex flex-wrap gap-4">
         <InputField label="Full name" name="name" register={register} error={errors.name} defaultValue={data?.name} />
         <InputField label="Email" name="email" register={register} error={errors.email} defaultValue={data?.email} />
@@ -69,9 +69,9 @@ const StudentForm = ({
           defaultValue={data?.birthday}
         />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Sex</label>
+          <label className="text-xs text-muted-foreground">Sex</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("sex")}
             defaultValue={data?.sex}
           >
@@ -80,9 +80,9 @@ const StudentForm = ({
           </select>
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Parent</label>
+          <label className="text-xs text-muted-foreground">Parent</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("parentId")}
             defaultValue={data?.parentId}
           >
@@ -93,13 +93,13 @@ const StudentForm = ({
             ))}
           </select>
           {errors.parentId?.message && (
-            <p className="text-xs text-red-400">{errors.parentId.message.toString()}</p>
+            <p className="text-xs text-danger">{errors.parentId.message.toString()}</p>
           )}
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Grade</label>
+          <label className="text-xs text-muted-foreground">Grade</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("gradeId")}
             defaultValue={data?.gradeId}
           >
@@ -111,9 +111,9 @@ const StudentForm = ({
           </select>
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Class</label>
+          <label className="text-xs text-muted-foreground">Class</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("classId")}
             defaultValue={data?.classId}
           >
@@ -124,16 +124,19 @@ const StudentForm = ({
             ))}
           </select>
           {errors.classId?.message && (
-            <p className="text-xs text-red-400">{errors.classId.message.toString()}</p>
+            <p className="text-xs text-danger">{errors.classId.message.toString()}</p>
           )}
         </div>
         {data?.id && (
           <InputField label="Id" name="id" register={register} defaultValue={data?.id} hidden />
         )}
       </div>
-      {submitError && <span className="text-red-500 text-sm">{submitError}</span>}
-      <button className="bg-Blue text-white p-2 rounded-md">
-        {type === "create" ? "Create" : "Update"}
+      {submitError && <span className="text-danger text-sm">{submitError}</span>}
+      <button
+        disabled={isSubmitting}
+        className="bg-accent text-accent-foreground p-2 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? "Saving..." : type === "create" ? "Create" : "Update"}
       </button>
     </form>
   );

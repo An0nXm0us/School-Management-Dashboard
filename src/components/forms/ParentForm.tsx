@@ -21,7 +21,7 @@ const ParentForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ParentSchema>({
     resolver: zodResolver(parentSchema) as Resolver<ParentSchema>,
     defaultValues: data,
@@ -54,9 +54,12 @@ const ParentForm = ({
           <InputField label="Id" name="id" register={register} defaultValue={data?.id} hidden />
         )}
       </div>
-      {submitError && <span className="text-red-500 text-sm">{submitError}</span>}
-      <button className="bg-Blue text-white p-2 rounded-md">
-        {type === "create" ? "Create" : "Update"}
+      {submitError && <span className="text-danger text-sm">{submitError}</span>}
+      <button
+        disabled={isSubmitting}
+        className="bg-accent text-accent-foreground p-2 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? "Saving..." : type === "create" ? "Create" : "Update"}
       </button>
     </form>
   );

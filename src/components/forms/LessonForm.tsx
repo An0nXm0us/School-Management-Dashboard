@@ -28,7 +28,7 @@ const LessonForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LessonSchema>({
     resolver: zodResolver(lessonSchema) as Resolver<LessonSchema>,
     defaultValues: data,
@@ -57,9 +57,9 @@ const LessonForm = ({
       <div className="flex flex-wrap gap-4">
         <InputField label="Lesson name" name="name" register={register} error={errors.name} defaultValue={data?.name} />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Day</label>
+          <label className="text-xs text-muted-foreground">Day</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("day")}
             defaultValue={data?.day}
           >
@@ -73,9 +73,9 @@ const LessonForm = ({
         <InputField label="Start time" name="startTime" type="time" register={register} error={errors.startTime} defaultValue={data?.startTime} />
         <InputField label="End time" name="endTime" type="time" register={register} error={errors.endTime} defaultValue={data?.endTime} />
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Subject</label>
+          <label className="text-xs text-muted-foreground">Subject</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("subjectId")}
             defaultValue={data?.subjectId}
           >
@@ -87,9 +87,9 @@ const LessonForm = ({
           </select>
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Class</label>
+          <label className="text-xs text-muted-foreground">Class</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("classId")}
             defaultValue={data?.classId}
           >
@@ -101,9 +101,9 @@ const LessonForm = ({
           </select>
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <label className="text-xs text-gray-500">Teacher</label>
+          <label className="text-xs text-muted-foreground">Teacher</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="ring-1 ring-border bg-background text-foreground p-2 rounded-md text-sm w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             {...register("teacherId")}
             defaultValue={data?.teacherId}
           >
@@ -118,9 +118,12 @@ const LessonForm = ({
           <InputField label="Id" name="id" register={register} defaultValue={data?.id} hidden />
         )}
       </div>
-      {submitError && <span className="text-red-500 text-sm">{submitError}</span>}
-      <button className="bg-Blue text-white p-2 rounded-md">
-        {type === "create" ? "Create" : "Update"}
+      {submitError && <span className="text-danger text-sm">{submitError}</span>}
+      <button
+        disabled={isSubmitting}
+        className="bg-accent text-accent-foreground p-2 rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? "Saving..." : type === "create" ? "Create" : "Update"}
       </button>
     </form>
   );
