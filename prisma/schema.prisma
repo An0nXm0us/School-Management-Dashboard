@@ -30,8 +30,8 @@ model Admin {
 }
 
 model Grade {
-  id       Int    @id @default(autoincrement())
-  level    Int    @unique
+  id       Int       @id @default(autoincrement())
+  level    Int       @unique
   students Student[]
   classes  Class[]
 }
@@ -107,14 +107,14 @@ model Student {
 }
 
 model Parent {
-  id        String   @id @default(cuid())
-  username  String   @unique
+  id        String    @id @default(cuid())
+  username  String    @unique
   name      String
   surname   String
-  email     String?  @unique
-  phone     String   @unique
+  email     String?   @unique
+  phone     String    @unique
   address   String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   students  Student[]
 }
 
