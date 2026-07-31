@@ -1,5 +1,7 @@
-import Link from "next/dist/client/link";
+import Link from "next/link";
 import Image from "next/image";
+import { getSession } from "@/lib/auth";
+import { signOut } from "@/lib/actions";
 
 const menuItems = [
   {
@@ -117,20 +119,38 @@ const menuItems = [
 ];
 
 const Menu = () => {
+  const session = getSession();
+  const role = session?.role;
+
   return (
     <div className="mt-4 text-sm">
       {menuItems.map((i) => (
         <div className="flex flex-col gap-2" key={i.title}>
           <span className="hidden lg:block text-gray-400 font-light my-4">{i.title}</span>
-          {i.items.map((item) => (
-            <Link 
-              href={item.href} 
-              key={item.label}
-              className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2">
-              <Image src={item.icon} alt={item.label} width={20} height={20} />
-              <span className="hidden lg:block">{item.label}</span>
-              </Link>
-          ))}
+          {i.items
+            .filter((item) => !role || item.visible.includes(role))
+            .map((item) =>
+              item.label === "Logout" ? (
+                <form action={signOut} key={item.label}>
+                  <button
+                    type="submit"
+                    className="w-full flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2"
+                  >
+                    <Image src={item.icon} alt={item.label} width={20} height={20} />
+                    <span className="hidden lg:block">{item.label}</span>
+                  </button>
+                </form>
+              ) : (
+                <Link
+                  href={item.href}
+                  key={item.label}
+                  className="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2"
+                >
+                  <Image src={item.icon} alt={item.label} width={20} height={20} />
+                  <span className="hidden lg:block">{item.label}</span>
+                </Link>
+              )
+            )}
         </div>
       ))}
     </div>
